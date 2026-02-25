@@ -4,7 +4,7 @@ A complete 6-Degree-of-Freedom (6-DOF) flight dynamics simulation environment bu
 
 ## Key Features
 
-* **OpenVSP / VSPAERO Integration**: Automated Python scripts to generate 3D wing geometries, run CFD Alpha Sweeps, and extract stability and control derivatives (although not the scope of this repository).
+* **OpenVSP / VSPAERO Integration**: Automated Python scripts to generate 3D wing geometries, run CFD AoA sweeps, and extract stability and control derivatives (although not the scope of this repository).
 * **6-DOF Physics Engine**: Solves the full non-linear equations of motion for a rigid body in flight, including translational accelerations, rotational rates, and Euler angle kinematics.
 * **Numerical Integration**: High-fidelity, stable integration at fast time steps (e.g., 100 Hz / 0.01s) to eliminate numerical divergence.
 * **Control Surface Mixing**: Built-in elevon mixing matrix for blended-wing/delta-wing configurations.
@@ -24,8 +24,7 @@ Aircraft_6DOF_Stability_Simulator/
 ├── equations/
 │   └── physics_6dof.py          # The core 6-DOF equations of motion
 ├── aero_db.py                   # Translates CFD/Derivatives into physical forces (N, Nm)
-├── vsp_single_design.py         # OpenVSP API script for meshing and aero sweeps
-├── main.py                      # Top-level execution, plotting, and FlightGear UDP
+├── main.py                      # Top-level execution, plotting, and FlightGear sim
 └── README.md
 ```
 
