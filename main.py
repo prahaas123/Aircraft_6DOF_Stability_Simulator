@@ -65,7 +65,7 @@ x0 = x0.transpose(); nx0 = x0.size
 
 # Time conditions
 t0_s = 0.0        # initial time [s]
-tf_s = 10.0       # final time [s]
+tf_s = 30.0       # final time [s]
 h_s = 0.001        # step size [s]
 
 # -----------------------------------------------------------------
@@ -189,43 +189,43 @@ plt.show()
 # PART 4: FLIGHTGEAR SIMULATION
 # -----------------------------------------------------------------
 
-def fdm_callback(fdm_data, event_pipe):
-    if event_pipe.poll():
-        state_dict = event_pipe.recv()
-        fdm_data.lat_rad = state_dict['lat_rad']
-        fdm_data.lon_rad = state_dict['lon_rad']
-        fdm_data.alt_m = state_dict['alt_m']
-        fdm_data.phi_rad = state_dict['phi_rad']
-        fdm_data.theta_rad = state_dict['theta_rad']
-        fdm_data.psi_rad = state_dict['psi_rad']
-    return fdm_data
+# def fdm_callback(fdm_data, event_pipe):
+#     if event_pipe.poll():
+#         state_dict = event_pipe.recv()
+#         fdm_data.lat_rad = state_dict['lat_rad']
+#         fdm_data.lon_rad = state_dict['lon_rad']
+#         fdm_data.alt_m = state_dict['alt_m']
+#         fdm_data.phi_rad = state_dict['phi_rad']
+#         fdm_data.theta_rad = state_dict['theta_rad']
+#         fdm_data.psi_rad = state_dict['psi_rad']
+#     return fdm_data
 
-print("Connecting to FlightGear...")
-fdm_conn = flightgear_python.fg_if.FDMConnection(fdm_version=24)
-fdm_event_pipe = fdm_conn.connect_rx('localhost', 5501, fdm_callback)
-fdm_conn.connect_tx('localhost', 5502)
-fdm_conn.start()
+# print("Connecting to FlightGear...")
+# fdm_conn = flightgear_python.fg_if.FDMConnection(fdm_version=24)
+# fdm_event_pipe = fdm_conn.connect_rx('localhost', 5501, fdm_callback)
+# fdm_conn.connect_tx('localhost', 5502)
+# fdm_conn.start()
 
-R_earth_m = 6378137.0  
-lat0_rad = math.radians(43.456)
-lon0_rad = math.radians(-80.383)
+# R_earth_m = 6378137.0  
+# lat0_rad = math.radians(43.456)
+# lon0_rad = math.radians(-80.383)
 
-try:
-    for i in range(nt_s):
-        p_north_m = x[9, i]
-        p_east_m = x[10, i]
-        current_state = {
-            'lat_rad': lat0_rad + (p_north_m / R_earth_m),
-            'lon_rad': lon0_rad + (p_east_m / (R_earth_m * math.cos(lat0_rad))),
-            'alt_m': -x[11, i],         
-            'phi_rad': x[6, i],         
-            'theta_rad': x[7, i],       
-            'psi_rad': x[8, i]          
-        }
-        fdm_event_pipe.send(current_state)
-        time.sleep(h_s)
-except KeyboardInterrupt:
-    pass
+# try:
+#     for i in range(nt_s):
+#         p_north_m = x[9, i]
+#         p_east_m = x[10, i]
+#         current_state = {
+#             'lat_rad': lat0_rad + (p_north_m / R_earth_m),
+#             'lon_rad': lon0_rad + (p_east_m / (R_earth_m * math.cos(lat0_rad))),
+#             'alt_m': -x[11, i],         
+#             'phi_rad': x[6, i],         
+#             'theta_rad': x[7, i],       
+#             'psi_rad': x[8, i]          
+#         }
+#         fdm_event_pipe.send(current_state)
+#         time.sleep(h_s)
+# except KeyboardInterrupt:
+#     pass
 
-fdm_conn.stop()
-print("Playback complete.")
+# fdm_conn.stop()
+# print("Playback complete.")

@@ -69,7 +69,7 @@ def physics_6dof(time, state, ac_params, atmos_mod):
     gz_b_mps2 = g * c_phi * c_theta
     
     # Aerodynamic forces and moments
-    drag_N, side_N, lift_N, roll_Nm, pitch_Nm, yaw_Nm = compute_aero_forces(true_airspeed_ms, alpha_rad, beta_rad, p_b_rps, q_b_rps, r_b_rps, -4.0, -4.0, qbar_pa, ac_params)
+    drag_N, side_N, lift_N, roll_Nm, pitch_Nm, yaw_Nm = compute_aero_forces(true_airspeed_ms, alpha_rad, beta_rad, p_b_rps, q_b_rps, r_b_rps, -5.0, -5.0, qbar_pa, ac_params)
      
     # Propulsion forces and moments
     prop_thrust_N, prop_lift_N, prop_torque_Nm, prop_moment_Nm = compute_prop_forces(true_airspeed_ms, qbar_pa, 100)
