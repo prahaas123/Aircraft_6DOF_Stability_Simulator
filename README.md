@@ -1,10 +1,9 @@
 # Aircraft 6-DOF Stability Simulator
 
-A complete 6-Degree-of-Freedom (6-DOF) flight dynamics simulation environment built in Python. This tool helps validate the stability of the conceptual aircraf designs by directly integrating **OpenVSP / STAR-CCM+** aerodynamic databases with a forward Euler numerical physics engine, and visualizing the results in **FlightGear**.
+A complete 6-Degree-of-Freedom (6-DOF) flight dynamics simulation environment built in Python. This tool helps validate the stability of the conceptual aircraft designs by directly integrating **OpenVSP / STAR-CCM+** aerodynamic databases with a forward Euler numerical physics engine, and visualizing the results in **FlightGear**.
 
 ## Key Features
 
-* **OpenVSP / VSPAERO Integration**: Automated Python scripts to generate 3D wing geometries, run CFD AoA sweeps, and extract stability and control derivatives (although not the scope of this repository).
 * **6-DOF Physics Engine**: Solves the full non-linear equations of motion for a rigid body in flight, including translational accelerations, rotational rates, and Euler angle kinematics.
 * **Numerical Integration**: High-fidelity, stable integration at fast time steps (e.g., 100 Hz / 0.01s) to eliminate numerical divergence.
 * **Control Surface Mixing**: Built-in elevon mixing matrix for blended-wing/delta-wing configurations.
