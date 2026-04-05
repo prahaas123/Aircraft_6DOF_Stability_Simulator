@@ -4,14 +4,14 @@ This repository contains Python-based tools for simulating the static and dynami
 
 ## Scripts
 
-* **`6dof_stability_simulator.py`**
+### **`6dof_stability_simulator.py`**
 
 * A full nonlinear 6-DOF flight dynamics simulator.
 * **Time-Domain Integration:** Uses a Forward Euler numerical integration to solve the rigid body equations of motion over time.
 * **Aerodynamics:** Airspeed, alpha and beta sweeps from a CFD tool, along with stability derivatives, are taken as inputs
 * **Visualization:** Automatically generates matplotlib subplots showing translational and angular velocities, Euler angles, and position data. It also includes an optional module visualize the animation via the `flightgear_python` library.
 
-* **`dynamic_modes.py`**
+### **`dynamic_modes.py`**
 
 * A linearized dynamic stability analysis tool.
 * **State-Space Matrices:** Constructs the longitudinal and lateral A-matrices based on mass properties, reference geometry, and stability derivatives.
