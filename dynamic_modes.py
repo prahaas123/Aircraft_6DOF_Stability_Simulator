@@ -1,6 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import cmath as cm
+import pandas as pd
 
 plt.rcParams.update({'font.size': 14})
 
@@ -17,42 +18,45 @@ Iz     = 0.45            # kg*m^2
 Ixz    = 0.00            # kg*m^2
 
 # Reference Geometry
-S_ref = 0.3226           # m^2 (Reference Area)
-c_ref = 0.254            # m   (Reference Chord)
-b_ref = 1.270            # m   (Reference Span)
+S_ref = 0.171            # m^2 (Reference Area)
+c_ref = 0.22             # m   (Reference Chord)
+b_ref = 1.2              # m   (Reference Span)
 
 # Trim Conditions
-Vtrim = 12.0             # m/s
+Vtrim = 20.0             # m/s
 alpha_trim_deg = 4.5     # deg
 theta0 = alpha_trim_deg * np.pi / 180.0
-
 Q = 0.5 * density * Vtrim**2
 
 # AERODYNAMIC COEFFICIENTS
+def get_deriv(col_name):
+    return np.interp(Vtrim, vel_data, df_stab[col_name].values)
+
 # Base Coefficients at Trim
 CL0 = 0.450
 CD0 = 0.025
 CM0 = 0.000
 
-# Longitudinal Derivatives
+# Hardcoded Derivatives
 CLa = 4.500     # CL_alpha
 CDa = 0.200     # CD_alpha
 CMa = -0.800    # Cm_alpha
-
 CLq = 6.000     # CL_q
 CDq = 0.000     # CD_q
-CMq = -12.000   # Cm_q
 
-# Lateral/Directional Derivatives
-CYb = -0.300    # CY_beta
-Clb = -0.050    # Cl_beta (Roll moment due to sideslip)
-Cnb =  0.120    # Cn_beta (Yaw moment due to sideslip)
-CYp = -0.050    # CY_p
-Clp = -0.450    # Cl_p (Roll damping)
-Cnp = -0.050    # Cn_p
-CYr =  0.200    # CY_r
-Clr =  0.100    # Cl_r
-Cnr = -0.150    # Cn_r
+# Lateral Derivatives
+df_stab = pd.read_csv('databases/stability.csv')
+vel_data = df_stab['Velocity'].values
+CMq = get_deriv('Cm_q')
+CYb = get_deriv('CY_beta')
+Clb = get_deriv('Cl_beta')
+Cnb = get_deriv('Cn_beta')
+CYp = get_deriv('CY_p')
+Clp = get_deriv('Cl_p')
+Cnp = get_deriv('Cn_p')
+CYr = get_deriv('CY_r')
+Clr = get_deriv('Cl_r')
+Cnr = get_deriv('Cn_r')
 
 # DIMENSIONAL DERIVATIVES
 # Longitudinal Dimensional Derivatives
