@@ -1,15 +1,22 @@
-# Aircraft 6-DOF Simulation and Stability Analysis
+# Aircraft 3-DOF Simulation and Stability Analysis
 
-This repository contains Python-based tools for simulating the static and dynamic stability behaviour of aircraft.
+This repository contains Python-based tools for simulating the static and dynamic stability behavior of aircraft.
 
 ## Scripts
 
-### **`6dof_stability_simulator.py`**
+### **`3dof_longitudinal_stability.py`**
 
-* A full nonlinear 6-DOF flight dynamics simulator.
-* **Time-Domain Integration:** Uses a Forward Euler numerical integration to solve the rigid body equations of motion over time.
-* **Aerodynamics:** Airspeed, alpha and beta sweeps from a CFD tool, along with stability derivatives, are taken as inputs
-* **Visualization:** Automatically generates matplotlib subplots showing translational and angular velocities, Euler angles, and position data. It also includes an optional module visualize the animation via the `flightgear_python` library.
+* A nonlinear 3-DOF flight dynamics simulator focused on longitudinal motion.
+* **Trim & Integration:** Automatically searches for approximate trim conditions and uses the RK45 method for time-domain integration.
+* **Aerodynamics:** Uses 2D interpolation on the provided aerodynamic databases.
+* **Visualization:** Generates matplotlib subplots displaying velocity, angle of attack ($\alpha$), pitch rate, pitch angle ($\theta$), and flight path angle ($\gamma$) over time.
+
+### **`3dof_lateral_stability.py`**
+
+* A nonlinear 3-DOF flight dynamics simulator focused on lateral-directional motion.
+* **Time-Domain Integration:** Uses the RK45 method to solve the lateral equations of motion subject to initial disturbances in roll or yaw rates.
+* **Aerodynamics:** Interpolates non-dimensional stability derivatives from the provided aerodynamic databases.
+* **Visualization:** Generates matplotlib subplots displaying sideslip angle ($\beta$), roll rate, yaw rate, roll angle ($\phi$), and heading ($\psi$).
 
 ### **`dynamic_modes.py`**
 
