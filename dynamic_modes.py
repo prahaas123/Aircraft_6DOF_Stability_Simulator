@@ -138,61 +138,53 @@ PHeigenvalues,  PHeigenvectors  = np.linalg.eig(Aph)
 SPeigenvalues,  PHeigenvectors  = np.linalg.eig(Asp)
 
 # PLOT AND PRINT EVERYTHING
-plt.figure()
-plt.grid()
-plt.xlabel('Real')
-plt.ylabel('Imaginary')
+plt.figure(figsize=(10, 6))
+plt.axhline(0, color='black', linewidth=1.2, alpha=0.8)
+plt.axvline(0, color='black', linewidth=1.2, alpha=0.8)
+plt.grid(True, linestyle='--', alpha=0.6)
+plt.xlabel('Real Axis')
+plt.ylabel('Imaginary Axis')
+plt.title('Aircraft Dynamic Modes Root Locus')
 
 print('Longitudinal Modes:')
-l = 0
 for i in range(len(LONeigenvalues)):
     print(LONeigenvalues[i])
-    l = not l
-    if l:
-        plt.plot(np.real(LONeigenvalues[i]), np.imag(LONeigenvalues[i]), 'bx', label='Longitudinal Mode ' + str(i))
-    else:
-        plt.plot(np.real(LONeigenvalues[i]), np.imag(LONeigenvalues[i]), 'bx')
+    # Only label the first point to avoid duplicate legend entries
+    lbl = 'Longitudinal Modes' if i == 0 else None
+    plt.plot(np.real(LONeigenvalues[i]), np.imag(LONeigenvalues[i]), 'bx', markersize=8, markeredgewidth=2, label=lbl)
 
 print('Short Period Approx:')
 for i in range(len(SPeigenvalues)):
     print(SPeigenvalues[i])
-    l = not l
-    if l:
-        plt.plot(np.real(SPeigenvalues[i]), np.imag(SPeigenvalues[i]), 'rx', label='Short Period Approximation ' + str(i))
-    else:
-        plt.plot(np.real(SPeigenvalues[i]), np.imag(SPeigenvalues[i]), 'rx')
+    lbl = 'Short Period Approx' if i == 0 else None
+    plt.plot(np.real(SPeigenvalues[i]), np.imag(SPeigenvalues[i]), 'rx', markersize=8, markeredgewidth=2, label=lbl)
 
 print('Phugoid Approx:')
 for i in range(len(PHeigenvalues)):
     print(PHeigenvalues[i])
-    l = not l
-    if l:
-        plt.plot(np.real(PHeigenvalues[i]), np.imag(PHeigenvalues[i]), 'gx', label='Phugoid Approximation ' + str(i))
-    else:
-        plt.plot(np.real(PHeigenvalues[i]), np.imag(PHeigenvalues[i]), 'gx')
+    lbl = 'Phugoid Approx' if i == 0 else None
+    plt.plot(np.real(PHeigenvalues[i]), np.imag(PHeigenvalues[i]), 'gx', markersize=8, markeredgewidth=2, label=lbl)
 
 print('Lateral Modes:')
 for i in range(len(LATeigenvalues)):
     print(LATeigenvalues[i])
-    l = not l
-    if l:
-        plt.plot(np.real(LATeigenvalues[i]), np.imag(LATeigenvalues[i]), 'bo', label='Lateral Mode ' + str(i))
-    else:
-        plt.plot(np.real(LATeigenvalues[i]), np.imag(LATeigenvalues[i]), 'bo')
+    lbl = 'Lateral Modes' if i == 0 else None
+    plt.plot(np.real(LATeigenvalues[i]), np.imag(LATeigenvalues[i]), 'bo', markersize=8, label=lbl)
 
 print('Dutch Roll Approx:')
 print(dutch_roll1)
-plt.plot(np.real(dutch_roll1), np.imag(dutch_roll1), 'ro', label='Dutch Roll Approximation')
+plt.plot(np.real(dutch_roll1), np.imag(dutch_roll1), 'ro', markersize=8, label='Dutch Roll Approx')
 print(dutch_roll2)
-plt.plot(np.real(dutch_roll2), np.imag(dutch_roll2), 'ro')
+plt.plot(np.real(dutch_roll2), np.imag(dutch_roll2), 'ro', markersize=8)
 
 print('Roll Mode Approx:')
 print(roll_mode)
-plt.plot(np.real(roll_mode), np.imag(roll_mode), 'go', label='Roll Approximation')
+plt.plot(np.real(roll_mode), np.imag(roll_mode), 'go', markersize=8, label='Roll Approx')
 
 print('Spiral Mode Approx:')
 print(spiral_mode)
-plt.plot(np.real(spiral_mode), np.imag(spiral_mode), 'mo', label='Spiral Approximation')
+plt.plot(np.real(spiral_mode), np.imag(spiral_mode), 'mo', markersize=8, label='Spiral Approx')
 
-plt.legend()
+plt.legend(bbox_to_anchor=(1.04, 1), loc="upper left", borderaxespad=0.)
+plt.tight_layout()
 plt.show()
